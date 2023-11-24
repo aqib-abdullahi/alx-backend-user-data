@@ -46,8 +46,8 @@ def before_request():
     """ runs before each request
     """
     auth_list = ['/api/v1/status/',
-                '/api/v1/unauthorized/',
-                '/api/v1/forbidden/']
+                 '/api/v1/unauthorized/',
+                 '/api/v1/forbidden/']
     if auth and auth.require_auth(request.path, auth_list):
         if not auth.authorization_header(request):
             abort(401)
