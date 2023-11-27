@@ -30,14 +30,17 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """ Adds user to db
         """
         if email and hashed_password:
-            user = User(email=email, hashed_password=hashed_password)
-            session = self._session
-            session.add(user)
-            session.commit()
-            return user
+            try:
+                user = User(email=email, hashed_password=hashed_password)
+                session = self._session
+                session.add(user)
+                session.commit()
+                return user
+            except Exception:
+                session.rollback()
         else:
             return
